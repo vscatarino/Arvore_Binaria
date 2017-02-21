@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
-
+#include<time.h>
 struct folha{
 	int num;
 	struct folha* esq;
@@ -15,13 +15,13 @@ Folha* inicializa(){
 	return NULL;
 }
 
-/*int ehVazia(Folha* f){
-	if(f == NULL)
-		return 1;
-}*/
+int ehVazia(Folha* f){
+	return f == NULL ;
+		
+}
 
 int busca(Folha* f, int num){
-	if(f == NULL){
+	if(ehVazia(f)){
 		return 0;
 	}else if(f->num == num){
 		return 1;
@@ -51,7 +51,7 @@ Folha* cria(int num){
 }
 
 Folha* insere(Folha* f, int num){
-	if(f == NULL){
+	if(ehVazia(f)){
 		f = cria(num);
 		//printf("Raiz :%d\n", num);
 	}else if(f->num == num){
@@ -124,22 +124,25 @@ void imprime(Folha* f){
 }
 
 int main(){
-	Folha* arvore;
-	arvore = insere(arvore, 7);
-	arvore = insere(arvore, 6);
-	arvore = insere(arvore, 9);
-	arvore = insere(arvore, 3);
-	arvore = insere(arvore, 4);
-	arvore = insere(arvore, 10);
-	imprime(arvore);
-	printf("\n\n");
-	arvore = retira(arvore, 6);
-	arvore = insere(arvore, 1);
-	arvore = insere(arvore, 5);
-	imprime(arvore);
-	destruir(arvore);
-	if(busca(arvore, 10)){
-		printf("ACHEI! \n");
+	
+ 	int aux;
+   	Folha* arvore;
+   	srand(time(NULL));
+   	for(int i =0; i< 15; i++){
+   		aux = rand()%30;
+   		printf("número escolhido: %d \n", aux);
+   		arvore = insere(arvore, aux);
+   } 
+	printf("xxxxxxxxxxxx\n");
+	printf("Arvore:\n");
+   	imprime(arvore);
+   	printf("xxxxxxxxxxxx\n");
+	aux = rand()%10;
+	printf("\nProcurar por: %d \n", aux);
+	if(busca(arvore, aux)){
+		printf("ACHEI!\n");
+	}else{
+		printf("O número não existe na árvore! \n");	
 	}
 
 	return 0;
